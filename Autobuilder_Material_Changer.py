@@ -119,10 +119,10 @@ def save_data():
     print("Selected option:", selected_option)
 
 
-    # Original hexadecimal content (replace this with your actual original content)
+    
 
     if len(ActorName[Name_index]) == 1 or len(ActorName[Name_index]) == 5 or len(ActorName[Name_index]) == 9 or len(ActorName[Name_index]) == 13 or len(ActorName[Name_index]) == 17 or len(ActorName[Name_index]) == 20:
-        original_hex_content = "594207001000000058000000c0000000c203000014000000260000003900000045000000436f6d6d7574617469766547726f75707300436f6d6d757461746976655573654974656d00537472696e67417272617900000000c203000014000000340000005a000000650000004173624f626a5f42616c6c6f6f6e456e76656c6f7065426173655f415f3031004173624f626a5f42616c6c6f6f6e456e76656c6f7065426173655f5a6f6e61755f415f3031004974656d5f4f72655f4c00c1020000000000c0d4000000010000a002000000c0010000c1000000e0000000c1010000020000c0ec000000c0020000a0a000000000000001000000"  # Replace this with your original hexadecimal content
+        original_hex_content = "594207001000000058000000c0000000c203000014000000260000003900000045000000436f6d6d7574617469766547726f75707300436f6d6d757461746976655573654974656d00537472696e67417272617900000000c203000014000000340000005a000000650000004173624f626a5f42616c6c6f6f6e456e76656c6f7065426173655f415f3031004173624f626a5f42616c6c6f6f6e456e76656c6f7065426173655f5a6f6e61755f415f3031004974656d5f4f72655f4c00c1020000000000c0d4000000010000a002000000c0010000c1000000e0000000c1010000020000c0ec000000c0020000a0a000000000000001000000"
     elif len(ActorName[Name_index]) == 2 or len(ActorName[Name_index]) == 6 or len(ActorName[Name_index]) == 10 or len(ActorName[Name_index]) == 14 or len(ActorName[Name_index]) == 18:
         original_hex_content = "594207001000000058000000c0000000c203000014000000260000003900000045000000436f6d6d7574617469766547726f75707300436f6d6d757461746976655573654974656d00537472696e67417272617900000000c203000014000000340000005a000000650000004173624f626a5f42616c6c6f6f6e456e76656c6f7065426173655f415f3031004173624f626a5f42616c6c6f6f6e456e76656c6f7065426173655f5a6f6e61755f415f3031004974656d5f4f72655f4c00000000c1020000000000c0d4000000010000a002000000c0010000c1000000e0000000c1010000020000c0ec000000c0020000a0a000000000000001000000"
     elif len(ActorName[Name_index]) == 3 or len(ActorName[Name_index]) == 7 or len(ActorName[Name_index]) == 11 or len(ActorName[Name_index]) == 15 or len(ActorName[Name_index]) == 19:
@@ -132,13 +132,13 @@ def save_data():
 
 
 
-    # Effectuer les changements spécifiés dans le dictionnaire "changes"
+    
     for iteration, change_list in changes.items():
         for change_info in change_list:
             search_hex = change_info['search_hex']
             replace_hex = change_info['replace_hex']
 
-            # Find the starting index of the n-th occurrence of search_hex
+            
             start_index = -1
             for i in range(iteration):
                 start_index = original_hex_content.find(search_hex, start_index + 1)
@@ -146,19 +146,19 @@ def save_data():
                     print(f"Cannot find the {iteration}-th occurrence of {search_hex}.")
                     return
 
-            # Replace the hexadecimal pattern at the specified index
+            
             original_hex_content = original_hex_content[:start_index] + replace_hex + original_hex_content[
                                                                                       start_index + len(search_hex):]
 
-    # Insert spaces back every 8 characters
+    
     new_hex_content = " ".join(original_hex_content[i:i + 8] for i in range(0, len(original_hex_content), 8))
 
-    # Remove any non-hexadecimal characters from new_hex_content
+    
     new_hex_content = re.sub(r'[^0-9a-fA-F]', '', new_hex_content)
 
-    print("new_hex_content:", new_hex_content)  # Add this line to check the content
+    print("new_hex_content:", new_hex_content)
 
-    # Write the modified hexadecimal content back to the .bgyml file
+    
     with open("romfs/GameParameter/AutoBuilderBuildingParam/Default.game__specialpower__AutoBuilderBuildingParam.bgyml",
               'wb') as file:
         file.write(bytes.fromhex(new_hex_content))
